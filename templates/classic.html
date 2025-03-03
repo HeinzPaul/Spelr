@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/classic.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic Mode - Spelr</title>
+</head>
+
+<body>
+    <header class="header">
+        <span class="logo">Spelr.</span>
+        <nav class="navbar">
+            <a href="{{url_for('selectmode')}}">Mode</a>
+            <a href="{{url_for('dashboard')}}">Dashboard</a>
+            <a href="{{url_for('logout')}}">Logout</a>
+        </nav>
+    </header>
+
+    {%if message%}
+    <div class="container" style="margin-top: 50px;">
+        <div class="wrapper">
+            <div class="congrats-wrapper">
+                <h1>Congratulations! 👑 </h1>
+                <h2>You've conquered every level, tackled tricky words, and proven your spelling skills! This isn't just
+                    about finishing a game—it's about mastering language, one word at a time.
+
+                    Keep sharpening your skills, challenge yourself with new words, and most importantly—keep learning!
+                </h2>
+                <p style="margin-top: 15px;">Best regards from Heinz Paul</p>
+            </div>
+        </div>
+    </div>
+    {%else%}
+
+    <div class="level-container">
+        <h2>Level {{level}}</h2>
+        {%if score <10 %} <div class="progress-container">
+            <div class="progress-bar" style="--progress: {{score/10}}"></div>
+    </div>
+    {%endif%}
+
+    {%if score >= 10 and score < 20 %} <div class="progress-container">
+        <div class="progress-bar" style="--progress: {{(score-10)/10}}"></div>
+        </div>
+        {%endif%}
+
+        {%if score >= 20 and score < 30 %} <div class="progress-container">
+            <div class="progress-bar" style="--progress: {{(score-20)/10}}"></div>
+            </div>
+            {%endif%}
+            {%if score >= 30 and score < 40 %} <div class="progress-container">
+                <div class="progress-bar" style="--progress: {{(score-30)/10}}"></div>
+                </div>
+                {%endif%}
+                {%if score >= 40 and score < 50 %} <div class="progress-container">
+                    <div class="progress-bar" style="--progress: {{(score-40)/10}}"></div>
+                    </div>
+                    {%endif%}
+                    {%if score >= 50 %} <div class="progress-container">
+                        <div class="progress-bar" style="--progress: {{(10)/10}}"></div>
+                    </div>
+                    {%endif%}
+                    </div>
+
+
+                    <div class="container">
+                        <div class="wrapper {% if streak > 1 %}has-streak{% endif %}">
+                            {% if streak == 0 %}
+                            <div class="streak-multiplier">x{{streak//1}}</div>
+                            {% endif %}
+
+                            {% if streak > 1 %}
+                            <div class="streak-multiplier" style="display: block;">x{{streak}}</div>
+                            {% endif %}
+
+                            <div class="score">Score: <strong>{{score}}</strong></div>
+                            <div class="word">{{ word }}
+                                <button type="button" class="sound-button" onclick="speak('{{ correct}}')">🔊</button>
+                            </div>
+                            <div class="meaning">{{ meaning }}</div>
+
+                            <form action="" method="POST">
+                                <div class="input-box {% if streak > 1 %}has-streak{% endif %}">
+                                    <input autocomplete="off" id="input" type="text" name="user_spelling"
+                                        placeholder="Type the correct spelling" required>
+                                </div>
+                                <button type="submit">Submit</button>
+                            </form>
+
+                            {% if result %}
+                            <div class="alert">
+                                {{ result }}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {%endif%}
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                            document.querySelector("input[name='user_spelling']").focus();
+                        });
+                        document.addEventListener("DOMContentLoaded", function () {
+                            document.querySelector("input[name='user_spelling']").focus();
+                        });
+
+                        function speak(word) {
+                            let utterance = new SpeechSynthesisUtterance(word);
+
+                            function setVoice() {
+                                let voices = speechSynthesis.getVoices();
+                                let femaleVoice = voices.find(voice =>
+                                    voice.name.includes("Female") || voice.name.includes("Google UK English Female") || voice.name.includes("Microsoft Zira")
+                                );
+
+                                if (femaleVoice) {
+                                    utterance.voice = femaleVoice;
+                                }
+
+                                speechSynthesis.speak(utterance);
+                            }
+
+                            if (speechSynthesis.getVoices().length === 0) {
+                                speechSynthesis.onvoiceschanged = setVoice;
+                            } else {
+                                setVoice();
+                            }
+                        }
+                    </script>
+</body>
+
+</html>

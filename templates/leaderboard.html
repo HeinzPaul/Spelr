@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/leaderboard.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Mistakes - Spelr</title>
+
+</head>
+
+<body>
+    <header class="header">
+        <span class="logo">Spelr.</span>
+        <nav class="navbar">
+            <a href="{{ url_for('arcade') }}"><- Go Back</a>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="wrapper">
+            <table style="border-collapse: collapse; width: 100%; text-align: left;">
+                <thead>
+                    <tr style="background-color: #585656; height: 50px;">
+                        <th style="padding: 15px;">Rank</th>
+                        <th style="padding: 15px;">Username</th>
+                        <th style="padding: 15px;">Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr style="border-bottom: 1px solid #ddd; height: 45px;">
+                        <td style="padding: 15px;">{{ loop.index }}</td>
+                        <td style="padding: 15px;">{{ user.username }}</td>
+                        <td style="padding: 15px;">{{ user.arcadehighscore }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>

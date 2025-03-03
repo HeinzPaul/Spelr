@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arcade.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic Mode - Spelr</title>
+
+</head>
+
+<body>
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Arcade Mode - Spelr</title>
+        <style>
+            /* CSS remains the same */
+            /* ... */
+        </style>
+    </head>
+
+    <body>
+        <header class="header">
+            <span class="logo">Spelr.</span>
+            <nav class="navbar">
+                <a href="{{url_for('selectmode')}}">Mode</a>
+                <a href="{{url_for('leaderboard')}}">Leaderboard</a>
+                <a href="{{url_for('logout')}}">Logout</a>
+            </nav>
+        </header>
+
+        <h1 class="page-title">Arcade Mode</h1>
+
+        {% if message %}
+        <div class="container">
+            <div class="wrapper">
+
+                <h1>High Score: <span style="color: rgb(211, 135, 48);">{{arcadehighscore}}</span></h1>
+
+                <div class="word">{{ message }}</div>
+                <a href="{{ url_for('arcade') }}"><button type="button">Retry</button></a>
+            </div>
+        </div>
+        {% else %}
+        <div class="container">
+            <div class="wrapper {% if streak > 1 %}has-streak{% endif %}">
+                {% if streak > 1 %}
+                <div class="streak-multiplier">x{{streak}}</div>
+                {% endif %}
+
+                <div class="arcade_score">Score: <strong>{{arcade_score}}</strong></div>
+                <div class="word">{{ word }}</div>
+                {% if meaning %}
+                <div class="meaning">{{ meaning }}</div>
+                {% endif %}
+
+                <form action="" method="POST">
+                    <div class="input-box {% if streak > 1 %}has-streak{% endif %}">
+                        <input autocomplete="off" id="input" type="text" name="user_spelling"
+                            placeholder="Type the correct spelling" required>
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+
+                {% if result %}
+                <div class="alert">
+                    {{ result }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const inputField = document.querySelector("input[name='user_spelling']");
+                if (inputField) {
+                    inputField.focus();
+                }
+            });
+        </script>
+    </body>
+
+    </html>

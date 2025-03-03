@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/practicemode.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic Mode - Spelr</title>
+
+</head>
+
+<body>
+    <header class="header">
+        <span class="logo">Spelr.</span>
+        <nav class="navbar">
+            <a href="{{url_for('dashboard')}}">Dashboard</a>
+            <a href="{{url_for('logout')}}">Logout</a>
+        </nav>
+    </header>
+
+    <div class="level-container">
+        <h1 style="font-size: 3em;">Practice Mode</h1>
+        {%if message%}<br>
+        <h2>{{message}}</h2>
+        {%endif%}
+    </div>
+
+    {%if word!=None%}
+
+    <div class="container">
+
+        <div class="wrapper">
+
+            <div class="word-container">
+                <div class="word">{{ word }}</div>
+                <button type="button" class="sound-button" onclick="speak('{{ correct }}')">🔊</button>
+            </div>
+
+            <form action="" method="POST">
+                <div class="input-box">
+                    <input autocomplete="off" id="input" type="text" name="user_spelling"
+                        placeholder="Type the correct spelling" required>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+
+            {% if result %}
+            <div class="alert">
+                {{ result }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {%endif%}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelector("input[name='user_spelling']").focus();
+        });
+
+        function speak(word) {
+            let utterance = new SpeechSynthesisUtterance(word);
+
+            function setVoice() {
+                let voices = speechSynthesis.getVoices();
+                let femaleVoice = voices.find(voice =>
+                    voice.name.includes("Female") || voice.name.includes("Google UK English Female") || voice.name.includes("Microsoft Zira")
+                );
+
+                if (femaleVoice) {
+                    utterance.voice = femaleVoice;
+                }
+
+                speechSynthesis.speak(utterance);
+            }
+
+            if (speechSynthesis.getVoices().length === 0) {
+                speechSynthesis.onvoiceschanged = setVoice;
+            } else {
+                setVoice();
+            }
+        }
+    </script>
+</body>
+
+</html>

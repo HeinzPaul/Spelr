@@ -1,0 +1,191 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+body {
+    background-color: black;
+    color: whitesmoke;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+    font-size: 2.3rem;
+    color: white;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.navbar a {
+    position: relative;
+    color: rgb(163, 159, 153);
+    font-size: 18px;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 35px;
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: white;
+}
+
+.navbar a::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 0;
+    height: 2px;
+    transition: 0.3s;
+}
+
+.navbar a:hover::before {
+    width: 100%;
+    background-color: white;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    gap: 70px;
+}
+
+
+
+.wrapper,
+.wrapper2 {
+    width: 500px;
+    padding: 40px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 420px;
+    /* Set a fixed height for both wrappers */
+}
+
+.wrapper:hover,
+.wrapper2:hover {
+    transform: scale(1.02);
+    backdrop-filter: none;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+}
+
+
+.wrapper::before,
+.wrapper2::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 20px;
+    z-index: -1;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.wrapper h1,
+.wrapper2 h1 {
+    font-size: 36px;
+    margin-bottom: 30px;
+    text-align: center;
+    color: white;
+    font-weight: 600;
+}
+
+.input-box {
+    position: relative;
+    margin-bottom: 30px;
+    font-size: large;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 15px 20px;
+    background: rgba(235, 235, 235, 0.1);
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    font-size: 36px;
+    color: white;
+    transition: all 0.3s ease;
+    font-weight: 400;
+}
+
+.input-box input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.input-box input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    background: linear-gradient(45deg, #777, #555);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: linear-gradient(45deg, #3f3d3d, #444);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+@media (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+
+    }
+
+
+
+    .wrapper,
+    .wrapper2 {
+        width: 100%;
+
+        max-width: 500px;
+    }
+
+    .wrapper2 {
+        margin-top: 100px;
+    }
+}

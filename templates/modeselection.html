@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modeselection.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Spelr</title>
+</head>
+
+<body>
+
+
+    <header class="header">
+        <span class="logo">Spelr.</span>
+        <nav class="navbar">
+
+            <a href="{{url_for('logout')}}">Logout</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="wrapper2">
+
+            <form method="post">
+                <h1>Classic Mode</h1>
+                <div class="input-box">
+                    <p style="text-align: justify;">Take your time and focus on accuracy! Spell words correctly to
+                        progress through levels. After playing, review your mistakes in the dashboard and improve using
+                        practice mode. Stay consistent, and you'll master even the toughest words!</p>
+                </div>
+                <a href="{{ url_for('classic') }}">
+                    <button type="button">Let's go</button>
+                </a>
+
+
+            </form>
+        </div>
+
+        <div class="wrapper">
+            <form method="post">
+                <h1>Arcade Mode</h1>
+                <div class="input-box">
+                    <p>Test your speed and precision! Spell as many words correctly as possible before time runs out.
+                        The faster you go, the higher your score! Challenge yourself to beat your best record. Perfect
+                        for a quick and fun way to sharpen your spelling skills!</p>
+                </div>
+                <a href="{{ url_for('arcade') }}">
+                    <button type="button">Let's go</button>
+                </a>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

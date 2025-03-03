@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Mistakes - Spelr</title>
+
+</head>
+
+<body>
+    <header class="header">
+        <span class="logo">Spelr.</span>
+        <nav class="navbar">
+            <a href="{{ url_for('practicemode') }}">Practice Mode</a>
+            <a style="font-weight: bolder;" href="{{ url_for('classic') }}">Go Back</a>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <div class="wrapper">
+            <h1>Review Your Mistakes</h1>
+            {%if message%}
+            <h2>{{message}}</h2>
+            {%endif%}
+            <ul class="mistake-list">
+                {% for mistake in mistakes %}
+                <li class="mistake-item">
+                    <div class="correct-answer"> <span style="font-size: x-large;">Correct Spelling: <span
+                                style="font-size: xx-large;">{{
+                                mistake.correct
+                                }}</span></span></div>
+                    <div class="wrong-answer">Your Answer: {{ mistake.wrong }}</div>
+
+                    {% if mistake.meaning %}
+                    <p><strong style="color: rgb(230, 201, 32);">Meaning:</strong> {{ mistake.meaning }}</p>
+                    <p><strong style="color: rgb(172, 106, 208);">Phonetics:</strong> {{ mistake.phonetics }}</p>
+                    <p><strong style="color: rgb(114, 174, 225);">Sentence:</strong> {{ mistake.sentence }}</p>
+                    {% endif %}
+                    <button type="button" class="sound-button" onclick="speak('{{ mistake.correct }}')">🔊</button>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="practice-box">
+            <h2>Practice Words</h2>
+            <p>Psst... Use the space provided below to practice the spellings the good old fashioned way</p>
+            <div id="current-word" class="current-word"></div>
+            <textarea type="text" class="practice-input"
+                placeholder="repetition repetition repetition re..."></textarea>
+
+        </div>
+    </div>
+
+    <script>
+        function speak(word) {
+            let utterance = new SpeechSynthesisUtterance(word);
+
+            function setVoice() {
+                let voices = speechSynthesis.getVoices();
+                let femaleVoice = voices.find(voice =>
+                    voice.name.includes("Female") || voice.name.includes("Google UK English Female") || voice.name.includes("Microsoft Zira")
+                );
+
+                if (femaleVoice) {
+                    utterance.voice = femaleVoice;
+                }
+
+                speechSynthesis.speak(utterance);
+            }
+
+            if (speechSynthesis.getVoices().length === 0) {
+                speechSynthesis.onvoiceschanged = setVoice;
+            } else {
+                setVoice();
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
