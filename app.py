@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session, redirect, url_for,jsonify 
 import random
+import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_bcrypt import Bcrypt
 from pymongo import MongoClient
@@ -7,12 +8,18 @@ from flask_pymongo import PyMongo
 
 app = Flask(__name__)
 
-app.config["MONGO_URI"] = "mongodb://localhost:27017/myDatabase"
+# Use MongoDB URI from Render environment variables
+app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 app.secret_key = "supersecretkey"  # Required for session storage
-client = MongoClient("mongodb://localhost:27017/")
-db = client["myDatabase"]
+
+# Initialize MongoDB with Flask-PyMongo
+mongo = PyMongo(app)
+db = mongo.db  # Access the database
+
+# Collections
 collection = db["words"]
 user_collection = db["users"]
+
 
 
 from bson import ObjectId  # ✅ Import this at the top
