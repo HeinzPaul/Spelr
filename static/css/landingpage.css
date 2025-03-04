@@ -44,6 +44,11 @@ body {
   color: white;
 }
 
+.navbar {
+  display: flex;
+  align-items: center;
+}
+
 .navbar a {
   font-family: JetBrains Mono;
   position: relative;
@@ -85,7 +90,7 @@ body {
 }
 
 .text {
-  font-family: Jetbrains Mono;
+  font-family: 'JetBrains Mono';
   margin-top: 80px;
   font-weight: bold;
   font-size: 3.5em;
@@ -180,91 +185,71 @@ body {
   0% {
       content: "#";
   }
-
   5% {
       content: ".";
   }
-
   10% {
       content: "^{";
   }
-
   15% {
       content: "-!";
   }
-
   20% {
       content: "#$_";
   }
-
   25% {
       content: "№:0";
   }
-
   30% {
       content: "#{+.";
   }
-
   35% {
       content: "@}-?";
   }
-
   40% {
       content: "?{4@%";
   }
-
   45% {
       content: "=.,^!";
   }
-
   50% {
       content: "?2@%";
   }
-
   55% {
       content: "\;1}]";
   }
-
   60% {
       content: "?{%:%";
       right: 0;
   }
-
   65% {
       content: "|{f[4";
       right: 0;
   }
-
   70% {
       content: "{4%0%";
       right: 0;
   }
-
   75% {
       content: "'1_0<";
       right: 0;
   }
-
   80% {
       content: "{0%";
       right: 0;
   }
-
   85% {
       content: "]>'";
       right: 0;
   }
-
   90% {
       content: "4";
       right: 0;
   }
-
   95% {
       content: "2";
       right: 0;
   }
-
   100% {
       content: "";
       right: 0;
@@ -429,6 +414,9 @@ body {
 
 .btn-container {
   margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 footer {
@@ -439,76 +427,6 @@ footer {
   font-size: 1.1rem;
 }
 
-/* Add subtle glow effects */
-.glow-text {
-  text-shadow: 0 0 10px rgba(108, 99, 255, 0.5);
-}
-
-.glow-border {
-  box-shadow: 0 0 15px rgba(108, 99, 255, 0.3);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .header {
-      flex-direction: row;
-      align-items: center;
-      padding: 10px 5%;
-  }
-
-  .logo {
-      font-size: 2rem;
-  }
-
-  .navbar a {
-      font-size: 1rem;
-      margin-left: 15px;
-  }
-
-  .text {
-      font-size: 2rem;
-      margin-top: 100px;
-  }
-
-  .hero-section h1 {
-      font-size: 2.5rem;
-  }
-
-  .hero-section p {
-      font-size: 1.2rem;
-  }
-
-  .maintext {
-      max-width: 90%;
-      font-size: 1.1rem;
-  }
-
-  .mode-card {
-      width: 100%;
-      max-width: 350px;
-  }
-
-  .benefits-section h2,
-  .cta-section h2 {
-      font-size: 2.2rem;
-  }
-
-  .benefit-card {
-      width: 100%;
-      max-width: 300px;
-  }
-
-  .cta-section p {
-      font-size: 1.1rem;
-  }
-}
-.btn-container {
-  margin-bottom: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-/* From Uiverse.io by adamgiebl */ 
 .button1 {
   display: flex;
   align-items: center;
@@ -541,4 +459,86 @@ footer {
 
 .button1:hover span {
   transform: translateX(7px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    padding: 10px 5%;
+  }
+
+  .logo {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+
+  .navbar {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .navbar a {
+    font-size: 1rem;
+    margin: 0 15px;
+  }
+
+  .text {
+    font-size: 2rem;
+    margin-top: 100px;
+    white-space: normal;
+    animation: none;
+    border-right: none;
+  }
+
+  .maintext {
+    max-width: 90%;
+    font-size: 1rem;
+  }
+
+  .hero-section h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-section p {
+    font-size: 1.2rem;
+  }
+
+  .mode-card {
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .benefits-section h2,
+  .cta-section h2 {
+    font-size: 2.2rem;
+  }
+
+  .benefit-card {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .cta-section p {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 10px 3%;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+
+  .navbar a {
+    font-size: 0.9rem;
+    margin: 0 10px;
+  }
+
+  .text {
+    font-size: 1.8rem;
+  }
 }

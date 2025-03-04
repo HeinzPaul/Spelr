@@ -71,9 +71,8 @@ body {
 }
 
 .wrapper, .wrapper2 {
-    width: 100%;
-    max-width: 500px;
-    padding: 20px;  /* Reduced padding */
+    width: 500px;
+    padding: 40px;
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.1);
     border: 2px solid rgba(255, 255, 255, 0.1);
@@ -83,7 +82,7 @@ body {
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-    min-height: 420px;  /* Changed from fixed height to min-height */
+    height: 420px;
 }
 
 .wrapper:hover, .wrapper2:hover {
@@ -105,8 +104,8 @@ body {
 }
 
 .wrapper h1, .wrapper2 h1 {
-    font-size: 2rem;  /* Reduced font size */
-    margin-bottom: 20px;
+    font-size: 36px;
+    margin-bottom: 30px;
     text-align: center;
     color: white;
     font-weight: 600;
@@ -114,8 +113,8 @@ body {
 
 .input-box {
     position: relative;
-    margin-bottom: 20px;
-    font-size: medium;
+    margin-bottom: 30px;
+    font-size: large;
 }
 
 .input-box input {
@@ -125,7 +124,7 @@ body {
     border: none;
     outline: none;
     border-radius: 10px;
-    font-size: 1.5rem;  /* Reduced font size */
+    font-size: 36px;
     color: white;
     transition: all 0.3s ease;
     font-weight: 400;
@@ -141,17 +140,18 @@ body {
 }
 
 .input-box p {
-    font-size: 0.9rem;  /* Reduced paragraph font size */
-    line-height: 1.4;   /* Improved line height */
+    word-wrap: break-word; /* Ensures text wraps */
+    overflow-wrap: break-word; /* Modern alternative */
+    text-align: justify;
 }
 
 button {
     width: 100%;
-    padding: 12px;  /* Slightly reduced padding */
+    padding: 15px;
     border: none;
     border-radius: 10px;
     color: white;
-    font-size: 1rem;  /* Reduced font size */
+    font-size: 16px;
     font-weight: 600;
     background: linear-gradient(45deg, #777, #555);
     cursor: pointer;
@@ -171,30 +171,37 @@ button:active {
 @media (max-width: 1024px) {
     .container {
         flex-direction: column;
-        gap: 30px;  /* Reduced gap between containers */
     }
 
     .wrapper, .wrapper2 {
-        width: 90%;  /* Slightly reduced width */
-        max-width: none;
+        width: 100%;
+        max-width: 500px;
     }
 
     .wrapper2 {
-        margin-top: 80px;  /* Reduced top margin */
+        margin-top: 100px;
+    }
+
+    .input-box p {
+        font-size: 0.9rem; /* Slightly smaller text for mobile */
+    }
+
+    .wrapper h1, .wrapper2 h1 {
+        font-size: 2rem; /* Slightly smaller header for mobile */
+    }
+
+    .input-box input {
+        font-size: 24px; /* Reduced input font size for mobile */
     }
 }
 
-@media (max-width: 480px) {
-    .header {
-        padding: 10px 5%;  /* Further reduced padding */
+@media (max-width: 600px) {
+    .wrapper, .wrapper2 {
+        padding: 20px; /* Reduced padding for very small screens */
+        height: auto; /* Allow height to adjust to content */
     }
 
-    .logo {
-        font-size: 1.8rem;  /* Smaller logo */
-    }
-
-    .navbar a {
-        font-size: 16px;
-        margin-left: 15px;
+    .input-box {
+        margin-bottom: 20px;
     }
 }
