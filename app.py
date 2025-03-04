@@ -9,12 +9,10 @@ from flask_pymongo import PyMongo
 app = Flask(__name__)
 
 # Use MongoDB URI from Render environment variables
-app.config["MONGO_URI"] = os.getenv("MONGO_URI")
+MONGO_URI = os.getenv("MONGO_URI")  # Ensure this is set in Render's environment variables
+client = MongoClient(MONGO_URI)
+db = client.get_database()  # Ensure a database is selected
 app.secret_key = "supersecretkey"  # Required for session storage
-
-# Initialize MongoDB with Flask-PyMongo
-mongo = PyMongo(app)
-db = mongo.db  # Access the database
 
 # Collections
 collection = db["words"]
