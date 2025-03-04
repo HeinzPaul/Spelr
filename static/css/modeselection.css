@@ -70,12 +70,10 @@ body {
     gap: 70px;
 }
 
-
-
-.wrapper,
-.wrapper2 {
-    width: 500px;
-    padding: 40px;
+.wrapper, .wrapper2 {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;  /* Reduced padding */
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.1);
     border: 2px solid rgba(255, 255, 255, 0.1);
@@ -85,20 +83,16 @@ body {
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-    height: 420px;
-    /* Set a fixed height for both wrappers */
+    min-height: 420px;  /* Changed from fixed height to min-height */
 }
 
-.wrapper:hover,
-.wrapper2:hover {
+.wrapper:hover, .wrapper2:hover {
     transform: scale(1.02);
     backdrop-filter: none;
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
 }
 
-
-.wrapper::before,
-.wrapper2::before {
+.wrapper::before, .wrapper2::before {
     content: '';
     position: absolute;
     top: 0;
@@ -110,10 +104,9 @@ body {
     background: rgba(255, 255, 255, 0.05);
 }
 
-.wrapper h1,
-.wrapper2 h1 {
-    font-size: 36px;
-    margin-bottom: 30px;
+.wrapper h1, .wrapper2 h1 {
+    font-size: 2rem;  /* Reduced font size */
+    margin-bottom: 20px;
     text-align: center;
     color: white;
     font-weight: 600;
@@ -121,8 +114,8 @@ body {
 
 .input-box {
     position: relative;
-    margin-bottom: 30px;
-    font-size: large;
+    margin-bottom: 20px;
+    font-size: medium;
 }
 
 .input-box input {
@@ -132,7 +125,7 @@ body {
     border: none;
     outline: none;
     border-radius: 10px;
-    font-size: 36px;
+    font-size: 1.5rem;  /* Reduced font size */
     color: white;
     transition: all 0.3s ease;
     font-weight: 400;
@@ -147,13 +140,18 @@ body {
     color: rgba(255, 255, 255, 0.5);
 }
 
+.input-box p {
+    font-size: 0.9rem;  /* Reduced paragraph font size */
+    line-height: 1.4;   /* Improved line height */
+}
+
 button {
     width: 100%;
-    padding: 15px;
+    padding: 12px;  /* Slightly reduced padding */
     border: none;
     border-radius: 10px;
     color: white;
-    font-size: 16px;
+    font-size: 1rem;  /* Reduced font size */
     font-weight: 600;
     background: linear-gradient(45deg, #777, #555);
     cursor: pointer;
@@ -173,19 +171,30 @@ button:active {
 @media (max-width: 1024px) {
     .container {
         flex-direction: column;
-
+        gap: 30px;  /* Reduced gap between containers */
     }
 
-
-
-    .wrapper,
-    .wrapper2 {
-        width: 100%;
-
-        max-width: 500px;
+    .wrapper, .wrapper2 {
+        width: 90%;  /* Slightly reduced width */
+        max-width: none;
     }
 
     .wrapper2 {
-        margin-top: 100px;
+        margin-top: 80px;  /* Reduced top margin */
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 10px 5%;  /* Further reduced padding */
+    }
+
+    .logo {
+        font-size: 1.8rem;  /* Smaller logo */
+    }
+
+    .navbar a {
+        font-size: 16px;
+        margin-left: 15px;
     }
 }
