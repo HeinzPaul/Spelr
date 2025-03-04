@@ -11,7 +11,7 @@ app = Flask(__name__)
 # Use MongoDB URI from Render environment variables
 MONGO_URI = os.getenv("MONGO_URI")  # Ensure this is set in Render's environment variables
 client = MongoClient(MONGO_URI)
-db = client.get_database()  # Ensure a database is selected
+db = client["myDatabase"] # Ensure a database is selected
 app.secret_key = "supersecretkey"  # Required for session storage
 
 # Collections
