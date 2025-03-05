@@ -205,3 +205,26 @@ button:active {
         margin-bottom: 20px;
     }
 }
+
+.mistake-item {
+    word-wrap: break-word;  /* Ensure long words break and wrap */
+    overflow-wrap: break-word;  /* Modern CSS property for word breaking */
+    hyphens: auto;  /* Optional: Allow hyphenation */
+    max-width: 100%; /* Ensure content doesn't exceed container width */
+}
+
+.correct-answer span {
+    display: inline-block;  /* Allow breaking of large words */
+    max-width: 100%;
+    word-break: break-word;
+}
+
+@media (max-width: 600px) {
+    .mistake-item {
+        padding: 15px;  /* Slightly reduce padding on smaller screens */
+    }
+
+    .correct-answer span {
+        font-size: large !important;  /* Reduce font size on small screens */
+    }
+}
