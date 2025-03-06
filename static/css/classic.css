@@ -113,15 +113,26 @@ body {
 }
 
 .wrapper.has-streak {
-    animation: shake 0.5s ease-in-out infinite;
-    transform-origin: center center;
+    box-shadow: 0 0 40px rgba(255, 69, 0, 0.6); /* Add a fiery glow base effect */
+    animation: fieryGlow 1.5s infinite alternate;
 }
 
 .input-box.has-streak input {
-    animation: shake 0.5s ease-in-out infinite;
-    transform-origin: center center;
+    box-shadow: 0 0 15px rgba(255, 69, 0, 0.4); /* Add a fiery glow effect to the input too */
+    animation: fieryGlow 1.5s infinite alternate; /* Same animation */
 }
 
+@keyframes fieryGlow {
+    0% {
+        box-shadow: 0 0 20px rgba(255, 69, 0, 0.6), 0 0 30px rgba(255, 165, 0, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(255, 69, 0, 0.7), 0 0 40px rgba(255, 165, 0, 0.4);
+    }
+    100% {
+        box-shadow: 0 0 30px rgba(255, 69, 0, 0.8), 0 0 50px rgba(255, 165, 0, 0.5);
+    }
+}
 .input-box input {
     width: 100%;
     padding: 12px 15px;
