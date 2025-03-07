@@ -8,10 +8,10 @@ from flask_pymongo import PyMongo
 
 app = Flask(__name__)
 
-# Use MongoDB URI from Render environment variables
-MONGO_URI = os.getenv("MONGO_URI")  # Ensure this is set in Render's environment variables
+
+MONGO_URI = os.getenv("MONGO_URI")  
 client = MongoClient(MONGO_URI)
-db = client["myDatabase"] # Ensure a database is selected
+db = client["myDatabase"] 
 app.secret_key = "supersecretkey"  # Required for session storage
 
 # Collections
@@ -20,14 +20,14 @@ user_collection = db["users"]
 
 
 
-from bson import ObjectId  # ✅ Import this at the top
+from bson import ObjectId 
 
 def get_user_progress(user_id):
     user = user_collection.find_one({"_id": ObjectId(user_id)})
     if not user:
         user = {"_id": ObjectId(user_id), "level": 1, "score": 0, "mistakes": [], "streak": 0, "used_words": [],"arcadehighscore":0}
         user_collection.insert_one(user)
-     # Enrich mistakes with word details
+ 
     enriched_mistakes = []
     for mistake in user["mistakes"]:
         word_details = collection.find_one({"correct_spelling": mistake["correct"]}, {"_id": 0, "meaning": 1, "phonetics": 1, "sentence": 1})
@@ -68,7 +68,7 @@ def signup():
         hashed_password = generate_password_hash(password)
 
         user_id = user_collection.insert_one({"username": username, "password": hashed_password,"level":1,"score":0,"mistakes":[],"streak":0,"arcadehighscore":0}).inserted_id
-        session["user_id"] = str(user_id)  # ✅ Store user ID in session
+        session["user_id"] = str(user_id)  
 
         return redirect(url_for("login"))
     return render_template("signup.html")
@@ -108,7 +108,7 @@ def dashboard():
     user_progress = get_user_progress(user_id)
     mistakes = user_progress["mistakes"]
 
-    # ✅ If mistakes list is empty, pass a message to the template
+    # If mistakes list is empty, pass a message to the template
     message = "No mistakes recorded yet! Great job!" if not mistakes else None
     return render_template("dashboard.html", mistakes=mistakes, message=message)
 
@@ -128,11 +128,11 @@ def practicemode():
     if "practice_score" not in session:
         session["practice_score"] = 0
 
-    # ✅ If no mistakes, show a message
+    #  If no mistakes, show a message
     if not mistakes:
         return render_template("practicemode.html", message="No mistakes found. You're all caught up!", word=None)
 
-    # ✅ Select a word only if it's a GET request or session is empty
+    #  Select a word only if it's a GET request or session is empty
     if "word_pair" not in session or request.method == "GET":
         word_pair = random.choice(mistakes)
         session["word_pair"] = word_pair  
@@ -145,12 +145,12 @@ def practicemode():
         if user_answer.lower() == word_pair["correct"].lower():
             session["result"] = "✅ Correct!"
             session["practice_score"] += 1  # ✅ Increase temporary session score
-            # ✅ Remove word from mistakes in the database
+            # Remove word from mistakes in the database
             mistakes = [m for m in mistakes if not (m["wrong"] == word_pair["wrong"] and m["correct"] == word_pair["correct"])]
         else:
             session["result"] = f"❌ Oops! I'm afraid you're wrong!"
 
-        # ✅ Update mistakes in database (but not score or level)
+        #  Update mistakes in database (but not score or level)
         update_user_progress(user_id, user_progress["score"], user_progress["level"], mistakes, user_progress["streak"])
 
         session.pop("word_pair", None)  
@@ -268,10 +268,10 @@ def classic():
         level = 5
     elif level == 5 and score >= 49:
         level = 6
-    elif level == 6:  # ✅ Game completion condition
+    elif level == 6:  #  Game completion condition
        return render_template("classic.html", message="Congrats!", score=score, level=level, result=session.get("result", ""), streak=streak)  # ✅ Redirects to a completion message
 
-    # ✅ Fetch words excluding already used words
+    #  Fetch words excluding already used words
     word_list = list(collection.find(
         {'level': level, 'correct_spelling': {'$nin': used_words}},  
         {'_id': 0, 'word': 1, 'correct_spelling': 1,
@@ -306,7 +306,7 @@ def classic():
                 mistakes.append({"wrong": user_answer, "correct": word_pair["correct_spelling"]})
             streak = 0
 
-        # ✅ Add word to used_words list and update database
+        #  Add word to used_words list and update database
         
         update_user_progress(user_id, score, level, mistakes, streak)
         user_collection.update_one({"_id": ObjectId(user_id)}, {"$set": {"used_words": used_words}})
